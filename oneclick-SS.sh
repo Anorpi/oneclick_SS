@@ -26,14 +26,13 @@ else
 fi
 
 #qrencode status
-qrencode_Status=`yum list qrencode|grep "Error"`
-if [ "$qrencode_Status" != "" ] ;then
-	echo "Installing qrencode"
-        yum -y install qrencode > /dev/null 2>&1
+qrencode --version > /dev/null 2>&1
+if [ $? != 0 ]; then
+        echo "Installing qrencode"
+	yum -y install qrencode > /dev/null 2>&1
 else
-        echo "Qrencode:ok"
+        echo "qrencode:ok"
 fi
-
 
 
 #pip status
