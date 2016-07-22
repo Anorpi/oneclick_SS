@@ -25,6 +25,16 @@ else
         echo "Python-setuptools:ok"
 fi
 
+#qrencode status
+qrencode_Status=`yum list qrencode|grep "Error"`
+if [ "$qrencode_Status" != "" ] ;then
+	echo "Installing qrencode"
+        yum -y install qrencode > /dev/null 2>&1
+else
+        echo "Qrencode:ok"
+fi
+
+
 
 #pip status
 pip --version > /dev/null 2>&1
@@ -95,3 +105,9 @@ echo "Server_Port[服务器端口]:8388"
 echo "Password[密码]:$client_password"
 echo "encrypt_methmod[加密]:aes-256-cfb"
 echo "proxy_port[代理端口]:1082"
+
+echo "Use QR Code:"
+echo ""
+client_base64=`echo "aes-256-cfb:$client_password@$server_ip:8388"|base64`
+echo "ss://$client_base64"| qrencode -o - -t UTF8
+echo ""
