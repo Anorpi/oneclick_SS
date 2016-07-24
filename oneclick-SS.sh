@@ -91,22 +91,26 @@ if [ $? != 0 ]; then
 else
 	echo  "ShadowServer start Success"
 fi
-
 #Install Over
-echo "ClientDownloadUrl[客户端下载地址]:[https://github.com/shadowsocks/shadowsocks-windows/wiki/Shadowsocks-Windows-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E]"
-echo "If client can't work,try install 'Microsoft .NET Framework 4.5' DownloadUrl[https://www.microsoft.com/zh-CN/download/details.aspx?id=30653]"
+clear
+echo "-------------------------------------------------------------------"
+echo "-Server install Over,client info:[服务端安装完成，客户端信息如下:]-"
 echo ""
-echo 'Install Over,client info'
-echo ""
-echo "客户端配置信息:"
-echo "Server_IP[服务器IP]:$server_ip"
-echo "Server_Port[服务器端口]:8388"
-echo "Password[密码]:$client_password"
-echo "encrypt_methmod[加密]:aes-256-cfb"
-echo "proxy_port[代理端口]:1082"
+echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo "+ ClientDownloadUrl[客户端下载地址]:                                                                                                                   +"
+echo "+ https://github.com/shadowsocks/shadowsocks-windows/wiki/Shadowsocks-Windows-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E                                     +"
+echo "+------------------------------------------------------------------------------------------------------------------------------------------------------+"
+echo "+ If client can't work,try install Microsoft .NET Framework 4.5[若客户端无法正常运行请安装 Microsoft .NET Framework 4.5]:                              +"
+echo "+ https://www.microsoft.com/zh-CN/download/details.aspx?id+30653                                                                                       +"
+echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
 echo "Use QR Code:"
 echo ""
 client_base64=`echo "aes-256-cfb:$client_password@$server_ip:8388"|base64`
 echo "ss://$client_base64"| qrencode -o - -t UTF8
 echo ""
+echo "Server_IP[服务器IP]:$server_ip"
+echo "Server_Port[服务器端口]:8388"
+echo "Password[密码]:$client_password"
+echo "encrypt_methmod[加密]:aes-256-cfb"
+echo "proxy_port[代理端口]:1082"
