@@ -17,13 +17,15 @@ else
 fi
 
 #python-setuptools status
-Pythonsetuptools_Status=`yum list python-setuptools|grep "Error"`
-if [ "$Pythonsetuptools_Status" != "" ] ;then
+easy_install --version > /dev/null 2>&1
+if [ $? != 0 ]; then
 	echo "Installing python-setuptools"
         yum -y install python-setuptools > /dev/null 2>&1
 else
         echo "Python-setuptools:ok"
 fi
+
+
 
 #qrencode status
 qrencode --version > /dev/null 2>&1
