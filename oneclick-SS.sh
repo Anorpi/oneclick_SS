@@ -103,7 +103,7 @@ echo "+ ClientDownloadUrl[客户端下载地址]:                               
 echo "+ https://github.com/shadowsocks/shadowsocks-windows/wiki/Shadowsocks-Windows-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E                                     +"
 echo "+------------------------------------------------------------------------------------------------------------------------------------------------------+"
 echo "+ If client can't work,try install Microsoft .NET Framework 4.5[若客户端无法正常运行请安装 Microsoft .NET Framework 4.5]:                              +"
-echo "+ https://www.microsoft.com/zh-CN/download/details.aspx?id+30653                                                                                       +"
+echo "+ https://www.microsoft.com/zh-CN/download/details.aspx?id=30653                                                                                       +"
 echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
 echo "Use QR Code:"
