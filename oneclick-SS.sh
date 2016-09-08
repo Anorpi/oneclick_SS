@@ -32,6 +32,25 @@ qrencode --version > /dev/null 2>&1
 if [ $? != 0 ]; then
         echo "Installing qrencode"
 	yum -y install qrencode > /dev/null 2>&1
+fi
+
+qrencode --version > /dev/null 2>&1
+if [ $? != 0 ]; then
+	echo "Installing qrencode with source code"
+	yum update -y
+	yum install wget -y
+	yum install gcc -y
+	yum install libpng* -y
+	wget --no-check-certificate 'https://fukuchi.org/works/qrencode/qrencode-3.4.4.tar.gz'
+	tar zxvf qrencode-3.4.4.tar.gz
+	cd qrencode-3.4.4
+	./configure
+	make
+	make install
+fi
+qrencode --version > /dev/null 2>&1
+if [ $? != 0 ]; then
+	echo "Installing qrencode with source code failed"
 else
         echo "qrencode:ok"
 fi
