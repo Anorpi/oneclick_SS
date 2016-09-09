@@ -37,22 +37,24 @@ fi
 qrencode --version > /dev/null 2>&1
 if [ $? != 0 ]; then
 	echo "Installing qrencode with source code"
-	yum update -y
-	yum install wget -y
-	yum install gcc -y
-	yum install libpng* -y
-	wget --no-check-certificate 'https://fukuchi.org/works/qrencode/qrencode-3.4.4.tar.gz'
-	tar zxvf qrencode-3.4.4.tar.gz
+	yum update -y > /dev/null 2>&1
+	yum install wget -y > /dev/null 2>&1
+	yum install gcc -y > /dev/null 2>&1
+	yum install libpng* -y > /dev/null 2>&1
+	wget -q -c --no-check-certificate 'https://fukuchi.org/works/qrencode/qrencode-3.4.4.tar.gz'
+	tar zxf qrencode-3.4.4.tar.gz
 	cd qrencode-3.4.4
-	./configure
-	make
-	make install
+	./configure > /dev/null 2>&1
+	make > /dev/null 2>&1
+	make install > /dev/null 2>&1
 fi
 qrencode --version > /dev/null 2>&1
 if [ $? != 0 ]; then
 	echo "Installing qrencode with source code failed"
+	qrencode_status=1
 else
         echo "qrencode:ok"
+	 qrencode_status=0
 fi
 
 
@@ -102,10 +104,10 @@ echo "    \"method\":\"aes-256-cfb\",">>/etc/shadowsocks.json
 echo "    \"fast_open\": false">>/etc/shadowsocks.json
 echo  "}">>/etc/shadowsocks.json
 #iptabels allow 8388 port
-iptables -I INPUT -p tcp --dport 8388 -j ACCEPT
+iptables -I INPUT -p tcp --dport 8388 -j ACCEPT  > /dev/null 2>&1
 #restart Shadowsocks Server
-ssserver -c /etc/shadowsocks.json -d stop
-ssserver -c /etc/shadowsocks.json -d start
+ssserver -c /etc/shadowsocks.json -d stop > /dev/null 2>&1
+ssserver -c /etc/shadowsocks.json -d start 
 if [ $? != 0 ]; then
 	echo  "ShadowServer start failed,please check"
 	exit
@@ -117,18 +119,20 @@ clear
 echo "-------------------------------------------------------------------"
 echo "-Server install Over,client info:[服务端安装完成，客户端信息如下:]-"
 echo ""
-echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-echo "+ ClientDownloadUrl[客户端下载地址]:                                                                                                                   +"
-echo "+ https://github.com/shadowsocks/shadowsocks-windows/wiki/Shadowsocks-Windows-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E                                     +"
-echo "+------------------------------------------------------------------------------------------------------------------------------------------------------+"
-echo "+ If client can't work,try install Microsoft .NET Framework 4.5[若客户端无法正常运行请安装 Microsoft .NET Framework 4.5]:                              +"
-echo "+ https://www.microsoft.com/zh-CN/download/details.aspx?id=30653                                                                                       +"
-echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+echo "--------------------------------------------------------------------------------------------------------------------------------------------------------"
+echo "- ClientDownloadUrl[客户端下载地址]:                                                                                                                   -"
+echo "- https://github.com/shadowsocks/shadowsocks-windows/wiki/Shadowsocks-Windows-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E                                     -"
+echo "--------------------------------------------------------------------------------------------------------------------------------------------------------"
+echo "- If client can't work,try install Microsoft .NET Framework 4.5[若客户端无法正常运行请安装 Microsoft .NET Framework 4.5]:                              -"
+echo "- https://www.microsoft.com/zh-CN/download/details.aspx?id=30653                                                                                       -"
+echo "--------------------------------------------------------------------------------------------------------------------------------------------------------"
 
-echo "Use QR Code:"
-echo ""
-client_base64=`echo "aes-256-cfb:$client_password@$server_ip:8388"|base64`
-echo "ss://$client_base64"| qrencode -o - -t UTF8
+if [ ${qrencode_status} != 1 ]; then
+	echo "Use QR Code:"
+	echo ""
+	client_base64=`echo "aes-256-cfb:$client_password@$server_ip:8388"|base64`
+	echo "ss://$client_base64"| qrencode -o - -t UTF8
+fi
 echo ""
 echo "Server_IP[服务器IP]:$server_ip"
 echo "Server_Port[服务器端口]:8388"
