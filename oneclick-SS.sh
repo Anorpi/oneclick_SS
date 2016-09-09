@@ -34,9 +34,10 @@ if [ $? != 0 ]; then
 	yum -y install qrencode > /dev/null 2>&1
 fi
 
+#install qrencode with source code
 qrencode --version > /dev/null 2>&1
 if [ $? != 0 ]; then
-	echo "Installing qrencode with source code"
+	echo "Try installing qrencode with source code"
 	yum update -y > /dev/null 2>&1
 	yum install wget -y > /dev/null 2>&1
 	yum install gcc -y > /dev/null 2>&1
@@ -48,13 +49,14 @@ if [ $? != 0 ]; then
 	make > /dev/null 2>&1
 	make install > /dev/null 2>&1
 fi
+#
 qrencode --version > /dev/null 2>&1
 if [ $? != 0 ]; then
 	echo "Installing qrencode with source code failed"
 	qrencode_status=1
 else
         echo "qrencode:ok"
-	 qrencode_status=0
+	qrencode_status=0
 fi
 
 
@@ -71,7 +73,7 @@ fi
 ssserver --version > /dev/null 2>&1
 if [ $? != 0 ]; then
         echo "Installing shadowsocks"
-       pip install shadowsocks > /dev/null 2>&1
+        pip install shadowsocks > /dev/null 2>&1
 else
         echo "shadowsocks:ok"
 fi
