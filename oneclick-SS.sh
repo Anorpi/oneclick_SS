@@ -130,10 +130,14 @@ echo "- https://www.microsoft.com/zh-CN/download/details.aspx?id=30653          
 echo "--------------------------------------------------------------------------------------------------------------------------------------------------------"
 
 if [ ${qrencode_status} != 1 ]; then
-	echo "Use QR Code:"
+	echo "QR Code:"
 	echo ""
-	client_base64=`printf "aes-256-cfb:$client_password@$server_ip:8388"|base64`
-	printf "ss://$client_base64"| qrencode -o - -t UTF8
+	client_base64=`echo -n "aes-256-cfb:$client_password@$server_ip:8388"|base64`
+	ss_encode_str="ss://$client_base64"
+	echo -n "${ss_encode_str}"| qrencode -o - -t UTF8
+	echo "#####"
+	echo "client_string:${client_base64}"
+	echo "all_string:${ss_encode_str}"
 fi
 echo ""
 echo "Server_IP[服务器IP]:$server_ip"
