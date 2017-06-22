@@ -135,9 +135,6 @@ if [ ${qrencode_status} != 1 ]; then
 	client_base64=`echo -n "aes-256-cfb:$client_password@$server_ip:8388"|base64`
 	ss_encode_str="ss://$client_base64"
 	echo -n "${ss_encode_str}"| qrencode -o - -t UTF8
-	echo "#####"
-	echo "client_string:${client_base64}"
-	echo "all_string:${ss_encode_str}"
 fi
 echo ""
 echo "Server_IP[服务器IP]:$server_ip"
