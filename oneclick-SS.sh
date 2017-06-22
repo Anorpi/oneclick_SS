@@ -132,7 +132,7 @@ echo "--------------------------------------------------------------------------
 if [ ${qrencode_status} != 1 ]; then
 	echo "Use QR Code:"
 	echo ""
-	client_base64=`echo "aes-256-cfb:$client_password@$server_ip:8388"|base64`
+	client_base64=`echo -n "aes-256-cfb:$client_password@$server_ip:8388"|base64`
 	echo "ss://$client_base64"| qrencode -o - -t UTF8
 fi
 echo ""
