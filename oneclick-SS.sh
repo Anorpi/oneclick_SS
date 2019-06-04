@@ -7,15 +7,6 @@ if [ "$user_name" != "root" ]; then
 	exit
 fi
 
-#Support Centos 6.x
-Support_OS=`cat /etc/issue|grep -E 6\.[0-9]`
-if [ "$Support_OS" != "" ] ;then
-        echo "System version:ok"
-else
-        echo "System Not Support"
-        exit
-fi
-
 #python-setuptools status
 easy_install --version > /dev/null 2>&1
 if [ $? != 0 ]; then
